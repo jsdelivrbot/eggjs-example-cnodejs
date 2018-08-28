@@ -8,7 +8,7 @@ exports.view = {
 };
 
 exports.topics = {
-	topicsUrl:'https://cnodejs.org/api/v1'
+	baseUrl:'https://cnodejs.org/api/v1'
 }
 
 exports.middleware = [

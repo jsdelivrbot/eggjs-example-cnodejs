@@ -3,16 +3,33 @@ const Service = require('egg').Service;
 class TopicsService extends Service {
     async list() {
         // read config
-        const { topicsUrl } = this.config.topics;
-        console.log(topicsUrl,'===============')
+        const { baseUrl } = this.config.topics;
+        console.log(baseUrl,'===============')
         // use build-in http client to GET cnodejs.org api
-        const { data: {data:topics} } = await this.ctx.curl(`${topicsUrl}/topics`,{
+        const { data: {data:topics} } = await this.ctx.curl(`${baseUrl}/topics`,{
             dataType: 'json'
         });
 
-        topics.forEach(item=>item.url = `${topicsUrl}/topic/${item.id}`)
+        topics.forEach(item=>item.url = `${baseUrl}/topic/${item.id}`)
 
-        return topics
+        return topics;
+    }
+    async detail(id){
+
+        console.log('id========',id);
+        const {baseUrl} = this.config.topics;
+
+        // const data = await this.ctx.curl(`${baseUrl}/topic/${id}`,{
+        //     dataType:'json'
+        // });
+
+        // console.log('data========',data);
+
+        const {data:{data:detail}} = await this.ctx.curl(`${baseUrl}/topic/${id}`,{
+            dataType:'json'
+        });
+
+        return detail;
     }
 }
 
